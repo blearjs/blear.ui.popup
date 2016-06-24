@@ -245,7 +245,7 @@ Popup.method(_initEvent, function () {
     the[_mask] = new Mask();
     the.on('beforeOpen', function (to) {
         if (options.mask) {
-            the[_mask].open();
+            the[_mask].zIndex(UI.zIndex()).open();
         }
 
         to.top = options.top;
