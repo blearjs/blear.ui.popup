@@ -101,7 +101,7 @@ var defaults = {
      */
     bottom: 0,
     openAnimation: function (to, done) {
-        var el = this.getElement();
+        var el = this.getWindowEl();
         var an = new Animation(el);
 
         attribute.style(el, {
@@ -122,7 +122,7 @@ var defaults = {
         an.destroy();
     },
     closeAnimation: function (to, done) {
-        var el = this.getElement();
+        var el = this.getWindowEl();
         var an = new Animation(el);
 
         attribute.style(el, {
