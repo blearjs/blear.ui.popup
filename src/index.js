@@ -8,17 +8,17 @@
 
 'use strict';
 
-var UI =           require('blear.ui');
-var Window =       require('blear.ui.window');
-var Mask =         require('blear.ui.mask');
-var Animation =    require('blear.classes.animation');
-var layout =       require('blear.core.layout');
-var selector =     require('blear.core.selector');
-var attribute =    require('blear.core.attribute');
+var UI = require('blear.ui');
+var Window = require('blear.ui.window');
+var Mask = require('blear.ui.mask');
+var Animation = require('blear.classes.animation');
+var layout = require('blear.core.layout');
+var selector = require('blear.core.selector');
+var attribute = require('blear.core.attribute');
 var modification = require('blear.core.modification');
-var object =       require('blear.utils.object');
-var fun =          require('blear.utils.function');
-var typeis =       require('blear.utils.typeis');
+var object = require('blear.utils.object');
+var fun = require('blear.utils.function');
+var typeis = require('blear.utils.typeis');
 
 var namespace = UI.UI_CLASS + '-popup';
 var AUTO = 'auto';
@@ -184,6 +184,16 @@ var Popup = Window.extend({
         Popup.parent.update(the);
         return selector.children(the[_containerEl])[0];
     },
+
+
+    /**
+     * 获取 popup 元素
+     * @returns {*}
+     */
+    getPopupEl: function () {
+        return this[_containerEl];
+    },
+
 
     /**
      * 销毁实例
