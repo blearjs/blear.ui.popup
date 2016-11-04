@@ -12,7 +12,7 @@ var Popup = require('../src/index');
 var popup = new Popup({
     template: require('./template.html'),
     mask: {
-        opacity: 0.2
+        opacity: 0.9
     }
 });
 
