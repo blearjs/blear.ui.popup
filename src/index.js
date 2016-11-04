@@ -36,10 +36,10 @@ var defaults = {
     template: null,
 
     /**
-     * 是否遮罩
-     * @type Boolean
+     * 遮罩配置
+     * @type Object|null
      */
-    mask: true,
+    mask: {},
 
     /**
      * 宽度
@@ -181,7 +181,7 @@ var Popup = Window.extend({
             modification.insert(html, the[_containerEl]);
         }
 
-        Popup.parent.update(the);
+        Popup.superInvoke('update', the);
         return selector.children(the[_containerEl])[0];
     },
 
@@ -203,7 +203,7 @@ var Popup = Window.extend({
 
         callback = fun.noop(callback);
         callback = fun.bind(callback, the);
-        Popup.parent.destroy(the, function () {
+        Popup.superInvoke('destroy', the, function () {
             the[_mask].destroy(callback);
         });
     }
@@ -213,12 +213,13 @@ var _options = Popup.sole();
 var _containerEl = Popup.sole();
 var _initNode = Popup.sole();
 var _initEvent = Popup.sole();
+var pro = Popup.prototype;
 
 
 /**
  * 初始化节点
  */
-Popup.method(_initNode, function () {
+pro[_initNode] = function () {
     var the = this;
     var options = the[_options];
     var containerEl = the[_containerEl] = modification.create('div', {
@@ -241,18 +242,18 @@ Popup.method(_initNode, function () {
     }
 
     modification.insert(el, containerEl);
-    Popup.parent.setHTML(the, containerEl);
-});
+    Popup.superInvoke('setHTML', the, containerEl);
+};
 
 
 /**
  * 初始化事件
  */
-Popup.method(_initEvent, function () {
+pro[_initEvent] = function () {
     var the = this;
     var options = the[_options];
 
-    the[_mask] = new Mask();
+    the[_mask] = new Mask(options.mask);
     the.on('beforeOpen', function (to) {
         if (options.mask) {
             the[_mask].zIndex(UI.zIndex()).open();
@@ -275,7 +276,7 @@ Popup.method(_initEvent, function () {
     the[_mask].on('hit', function () {
         the.close();
     });
-});
+};
 
 Popup.defaults = defaults;
 module.exports = Popup;
