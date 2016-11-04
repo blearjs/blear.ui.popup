@@ -48,7 +48,7 @@
     "blear.utils.typeis": "1.x"
   },
   "devDependencies": {
-
+    "coolie.js": "2.x"
   },
   "license": "MIT"
 }
