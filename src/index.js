@@ -223,11 +223,7 @@ pro[_initNode] = function () {
     var the = this;
     var options = the[_options];
     var containerEl = the[_containerEl] = modification.create('div', {
-        'class': namespace,
-        style: {
-            overflow: 'auto',
-            overflowScrolling: 'touch'
-        }
+        'class': namespace
     });
     var el = null;
 
