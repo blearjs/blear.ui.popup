@@ -159,7 +159,8 @@ var Popup = Window.extend({
             topRate: AUTO,
             leftRate: AUTO,
             openAnimation: options.openAnimation,
-            closeAnimation: options.closeAnimation
+            closeAnimation: options.closeAnimation,
+            addClass: namespace + '-window'
         });
 
         the[_initNode]();
@@ -274,5 +275,6 @@ pro[_initEvent] = function () {
     });
 };
 
+require('./style.css', 'css|style');
 Popup.defaults = defaults;
 module.exports = Popup;
