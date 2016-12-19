@@ -160,7 +160,7 @@ var Popup = Window.extend({
             leftRate: AUTO,
             openAnimation: options.openAnimation,
             closeAnimation: options.closeAnimation,
-            addClass: namespace + '-window'
+            addClass: options.addClass + ' ' + namespace + '-window'
         });
 
         the[_initNode]();
