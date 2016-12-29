@@ -42,10 +42,16 @@ var defaults = {
     mask: {},
 
     /**
+     * 添加的 class
+     * @type String
+     */
+    addClass: '',
+
+    /**
      * 宽度
      * @type Number|String
      */
-    width: '100%',
+    width: 'auto',
 
     /**
      * 高度
@@ -84,12 +90,6 @@ var defaults = {
     top: 'auto',
 
     /**
-     * 左位移
-     * @type Number|String
-     */
-    left: 0,
-
-    /**
      * 右位移
      * @type Number|String
      */
@@ -100,6 +100,12 @@ var defaults = {
      * @type Number|String
      */
     bottom: 0,
+
+    /**
+     * 左位移
+     * @type Number|String
+     */
+    left: 0,
     openAnimation: function (to, done) {
         var el = this.getWindowEl();
         var an = new Animation(el);
