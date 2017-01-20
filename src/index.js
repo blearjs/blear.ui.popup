@@ -22,7 +22,7 @@ var typeis = require('blear.utils.typeis');
 
 var namespace = UI.UI_CLASS + '-popup';
 var AUTO = 'auto';
-var defaults = {
+var defaults = object.assign(true, {}, Window.defaults, {
     /**
      * 弹出的元素
      * @type HTMLElement|String|null
@@ -39,13 +39,7 @@ var defaults = {
      * 遮罩配置
      * @type Object|null
      */
-    mask: {},
-
-    /**
-     * 添加的 class
-     * @type String
-     */
-    addClass: '',
+    maskOptions: {},
 
     /**
      * 宽度
@@ -107,8 +101,9 @@ var defaults = {
      */
     left: 0,
     openAnimation: function (to, done) {
-        var el = this.getWindowEl();
-        var an = new Animation(el);
+        var the = this;
+        var el = the.getWindowEl();
+        var an = new Animation(el, the.getOptions('animationOptions'));
 
         attribute.style(el, {
             display: 'block',
@@ -128,8 +123,9 @@ var defaults = {
         an.destroy();
     },
     closeAnimation: function (to, done) {
-        var el = this.getWindowEl();
-        var an = new Animation(el);
+        var the = this;
+        var el = the.getWindowEl();
+        var an = new Animation(el, the.getOptions('animationOptions'));
 
         attribute.style(el, {
             display: 'block',
@@ -148,7 +144,7 @@ var defaults = {
         an.start(done);
         an.destroy();
     }
-};
+});
 var Popup = Window.extend({
     className: 'Popup',
     constructor: function (options) {
@@ -171,6 +167,25 @@ var Popup = Window.extend({
 
         the[_initNode]();
         the[_initEvent]();
+    },
+
+    /**
+     * 获取配置
+     * @param key
+     * @returns {*}
+     */
+    getOptions: function (key) {
+        return UI.getOptions(this, _options, key);
+    },
+
+    /**
+     * 获取配置
+     * @param key
+     * @param val
+     * @returns {*}
+     */
+    setOptions: function (key, val) {
+        return UI.setOptions(this, _options, key, val);
     },
 
     /**
@@ -208,7 +223,7 @@ var Popup = Window.extend({
     destroy: function (callback) {
         var the = this;
 
-        callback = fun.noop(callback);
+        callback = fun.ensure(callback);
         callback = fun.bind(callback, the);
         Popup.superInvoke('destroy', the, function () {
             the[_mask].destroy(callback);
@@ -256,12 +271,9 @@ pro[_initEvent] = function () {
     var the = this;
     var options = the[_options];
 
-    the[_mask] = new Mask(options.mask);
+    the[_mask] = new Mask(options.maskOptions);
     the.on('beforeOpen', function (to) {
-        if (options.mask) {
-            the[_mask].zIndex(UI.zIndex()).open();
-        }
-
+        the[_mask].zIndex(UI.zIndex()).open();
         to.top = options.top;
         to.right = options.right;
         to.bottom = options.bottom;
@@ -272,9 +284,7 @@ pro[_initEvent] = function () {
         });
     });
     the.on('afterClose', function () {
-        if (options.mask) {
-            the[_mask].close();
-        }
+        the[_mask].close();
     });
     the[_mask].on('hit', function () {
         the.close();
