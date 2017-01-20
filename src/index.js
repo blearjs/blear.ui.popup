@@ -119,8 +119,10 @@ var defaults = object.assign(true, {}, Window.defaults, {
             duration: 234,
             easing: 'in-out'
         });
-        an.start(done);
-        an.destroy();
+        an.start(function () {
+            an.destroy();
+            done();
+        });
     },
     closeAnimation: function (to, done) {
         var the = this;
@@ -141,8 +143,10 @@ var defaults = object.assign(true, {}, Window.defaults, {
             duration: 234,
             easing: 'in-out'
         });
-        an.start(done);
-        an.destroy();
+        an.start(function () {
+            an.destroy();
+            done();
+        });
     }
 });
 var Popup = Window.extend({
