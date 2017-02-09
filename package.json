@@ -1,6 +1,6 @@
 {
   "name": "blear.ui.popup",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "弹出层 UI",
   "scripts": {
     "live": "browser-sync start --config bs-config.js"
@@ -34,17 +34,17 @@
     "url": "https://github.com/blearjs/blear.ui.popup/issues"
   },
   "dependencies": {
-    "blear.classes.animation": "^1.1.1",
+    "blear.classes.animation": "1.x",
     "blear.core.attribute": "1.x",
     "blear.core.layout": "1.x",
     "blear.core.modification": "1.x",
     "blear.core.selector": "1.x",
-    "blear.core.transform": "^1.0.6",
-    "blear.ui": "^1.0.8",
-    "blear.ui.mask": "^1.0.15",
-    "blear.ui.window": "^1.1.19",
-    "blear.utils.function": "^1.0.5",
-    "blear.utils.object": "^1.0.14",
+    "blear.core.transform": "1.x",
+    "blear.ui": "1.x",
+    "blear.ui.mask": "1.x",
+    "blear.ui.window": "1.x",
+    "blear.utils.function": "1.x",
+    "blear.utils.object": "1.x",
     "blear.utils.typeis": "1.x"
   },
   "peerDependencies": {},
