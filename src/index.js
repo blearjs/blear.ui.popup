@@ -36,8 +36,8 @@ var defaults = object.assign(true, {}, Window.defaults, {
     template: null,
 
     /**
-     * 遮罩配置
-     * @type Object|null
+     * 遮罩配置，如果为 false，则不显示遮罩
+     * @type Object|null|Boolean
      */
     maskOptions: {},
 
@@ -230,7 +230,9 @@ var Popup = Window.extend({
         callback = fun.ensure(callback);
         callback = fun.bind(callback, the);
         Popup.superInvoke('destroy', the, function () {
-            the[_mask].destroy(callback);
+            if (the[_mask]) {
+                the[_mask].destroy(callback);
+            }
         });
     }
 });
@@ -274,6 +276,10 @@ pro[_initNode] = function () {
 pro[_initEvent] = function () {
     var the = this;
     var options = the[_options];
+
+    if (options.maskOptions === false) {
+        return;
+    }
 
     the[_mask] = new Mask(options.maskOptions);
     the.on('beforeOpen', function (to) {
