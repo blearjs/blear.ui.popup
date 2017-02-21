@@ -2,6 +2,7 @@
  * 弹出框
  * @author ydr.me
  * @create 2016-04-28 18:07
+ * @update 2017年02月21日10:26:22
  */
 
 
@@ -207,7 +208,7 @@ var Popup = Window.extend({
             modification.insert(html, the[_containerEl]);
         }
 
-        Popup.superInvoke('update', the);
+        Popup.invoke('update', the);
         return selector.children(the[_containerEl])[0];
     },
 
@@ -229,7 +230,7 @@ var Popup = Window.extend({
 
         callback = fun.ensure(callback);
         callback = fun.bind(callback, the);
-        Popup.superInvoke('destroy', the, function () {
+        Popup.invoke('destroy', the, function () {
             if (the[_mask]) {
                 the[_mask].destroy(callback);
             }
@@ -266,7 +267,7 @@ pro[_initNode] = function () {
     }
 
     modification.insert(el, containerEl);
-    Popup.superInvoke('setHTML', the, containerEl);
+    Popup.invoke('setHTML', the, containerEl);
 };
 
 
