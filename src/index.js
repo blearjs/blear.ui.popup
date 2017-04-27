@@ -31,12 +31,6 @@ var defaults = object.assign(true, {}, Window.defaults, {
     el: null,
 
     /**
-     * 模板
-     * @type String|null
-     */
-    template: null,
-
-    /**
      * 遮罩配置，如果为 false，则不显示遮罩
      * @type Object|null|Boolean
      */
@@ -254,18 +248,7 @@ pro[_initNode] = function () {
     var containerEl = the[_containerEl] = modification.create('div', {
         'class': namespace
     });
-    var el = null;
-
-    if (options.el) {
-        el = selector.query(options.el)[0];
-    }
-
-    if (el && options.template) {
-        attribute.html(el, options.template);
-    } else if (!el) {
-        el = modification.parse(options.template || '<div/>');
-    }
-
+    var el = selector.query(options.el)[0];
     modification.insert(el, containerEl);
     Popup.invoke('setHTML', the, containerEl);
 };
