@@ -156,20 +156,11 @@ var Popup = Window.extend({
         var the = this;
 
         the[_options] = options = object.assign(true, {}, defaults, options);
-        Popup.parent(the, {
-            minWidth: options.minWidth,
-            minHeight: options.minHeight,
-            maxWidth: options.maxWidth,
-            maxHeight: options.maxHeight,
-            width: options.width,
-            height: options.height,
-            topRate: AUTO,
-            leftRate: AUTO,
-            openAnimation: options.openAnimation,
-            closeAnimation: options.closeAnimation,
-            addClass: options.addClass + ' ' + namespace + '-window'
-        });
-
+        var parentOptions = options;
+        parentOptions.addClass = options.addClass + ' ' + namespace + '-window'
+        parentOptions.topRate = AUTO;
+        parentOptions.leftRate = AUTO;
+        Popup.parent(the, parentOptions);
         the[_initNode]();
         the[_initEvent]();
     },
