@@ -302,7 +302,7 @@ pro[_initEvent] = function () {
             var el = document.elementFromPoint(ev.clientX, ev.clientY);
             var tag = el.tagName.toLowerCase();
             modification.insert(windowEl);
-            if (tag === 'input' || tag === 'textarea') {
+            if ((el.contentEditable || tag === 'input' || tag === 'textarea') && !el.readOnly && !el.disabled) {
                 el.focus();
             } else {
                 afterMaskClose = function () {
