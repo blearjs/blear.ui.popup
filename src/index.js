@@ -239,6 +239,7 @@ var _containerEl = Popup.sole();
 var _initNode = Popup.sole();
 var _initEvent = Popup.sole();
 var pro = Popup.prototype;
+var notFocusInputTypeRE = /date|month|day|week|button|reset|radio|file|color|submit|checkbox/;
 
 
 /**
@@ -301,8 +302,10 @@ pro[_initEvent] = function () {
             modification.remove(windowEl);
             var el = document.elementFromPoint(ev.clientX, ev.clientY);
             var tag = el.tagName.toLowerCase();
+            var type = el.type;
+            var isInput = tag === 'input' && notFocusInputTypeRE.test(type);
             modification.insert(windowEl);
-            if ((el.contentEditable || tag === 'input' || tag === 'textarea') && !el.readOnly && !el.disabled) {
+            if ((findClosestContentEditableEl(el) || isInput || tag === 'textarea') && !el.readOnly && !el.disabled) {
                 el.focus();
             } else {
                 afterMaskClose = function () {
@@ -322,3 +325,15 @@ pro[_initEvent] = function () {
 require('./style.css', 'css|style');
 Popup.defaults = defaults;
 module.exports = Popup;
+
+
+/**
+ * 查找最近符合 contentEditable 的元素
+ * @param el
+ * @returns {*}
+ */
+function findClosestContentEditableEl(el) {
+    return selector.closest(el, function (el) {
+        return el.isContentEditable === true;
+    })[0];
+}
