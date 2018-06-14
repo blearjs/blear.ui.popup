@@ -292,7 +292,7 @@ pro[_initEvent] = function () {
             overflowScrolling: 'touch'
         });
     });
-    the.on('afterClose', function () {
+    the.on('close', function () {
         the[_mask].close();
     });
     the[_mask].on('hit', function (ev) {
@@ -303,7 +303,7 @@ pro[_initEvent] = function () {
             var el = document.elementFromPoint(ev.clientX, ev.clientY);
             var tag = el.tagName.toLowerCase();
             var type = el.type;
-            var isInput = tag === 'input' && notFocusInputTypeRE.test(type);
+            var isInput = tag === 'input' && !notFocusInputTypeRE.test(type);
             modification.insert(windowEl);
             if ((findClosestContentEditableEl(el) || isInput || tag === 'textarea') && !el.readOnly && !el.disabled) {
                 el.focus();
