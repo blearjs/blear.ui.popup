@@ -11,11 +11,20 @@ var Popup = require('../src/index');
 
 var popup = new Popup({
     template: require('./template.html'),
-    mask: {
+    maskOptions: {
         opacity: 0.9
-    }
+    },
+    maskThrough: true
 });
 
 document.getElementById('btn').onclick = function () {
     popup.open();
 };
+
+document.getElementById('btn2').onclick = function () {
+    alert('btn2');
+};
+
+document.addEventListener('click', function (ev) {
+    console.log(ev);
+});

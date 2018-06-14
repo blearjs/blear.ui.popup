@@ -13,9 +13,9 @@ var UI = require('blear.ui');
 var Window = require('blear.ui.window');
 var Mask = require('blear.ui.mask');
 var Animation = require('blear.classes.animation');
-var layout = require('blear.core.layout');
 var selector = require('blear.core.selector');
 var attribute = require('blear.core.attribute');
+var event = require('blear.core.event');
 var modification = require('blear.core.modification');
 var object = require('blear.utils.object');
 var fun = require('blear.utils.function');
@@ -41,6 +41,11 @@ var defaults = object.assign(true, {}, Window.defaults, {
      * @type Object|null|Boolean
      */
     maskOptions: {},
+
+    /**
+     * 是否可以点透
+     */
+    maskThrough: false,
 
     /**
      * 宽度
@@ -268,6 +273,7 @@ pro[_initNode] = function () {
 pro[_initEvent] = function () {
     var the = this;
     var options = the[_options];
+    var afterMaskClose = null;
 
     if (options.maskOptions === false) {
         return;
@@ -288,8 +294,28 @@ pro[_initEvent] = function () {
     the.on('afterClose', function () {
         the[_mask].close();
     });
-    the[_mask].on('hit', function () {
+    the[_mask].on('hit', function (ev) {
         the.close();
+        if (options.maskThrough) {
+            var windowEl = the[_mask].getWindowEl();
+            modification.remove(windowEl);
+            var el = document.elementFromPoint(ev.clientX, ev.clientY);
+            var tag = el.tagName.toLowerCase();
+            modification.insert(windowEl);
+            if (tag === 'input' || tag === 'textarea') {
+                el.focus();
+            } else {
+                afterMaskClose = function () {
+                    event.emit(el, 'click');
+                };
+            }
+        }
+    });
+    the[_mask].on('afterClose', function () {
+        if (afterMaskClose) {
+            afterMaskClose();
+            afterMaskClose = null;
+        }
     });
 };
 

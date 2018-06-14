@@ -23,17 +23,33 @@
             margin: 0;
             padding: 0;
         }
+
+        body {
+            margin: 30px;
+        }
+
+        input {
+            padding: 20px;
+            font-size: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 20px;
+        }
     </style>
 </head>
 <body ontouchstart="">
 
 <h1>Popup example</h1>
-
+<input type="text">
+<button id="btn2"></button>
 <button id="btn">弹出 popup</button>
 
 <script src="/node_modules/coolie.js/coolie.js"
-data-config="/example/coolie-config.js"
-data-main="index.js"></script>
+        data-config="/example/coolie-config.js"
+        data-main="index.js"></script>
+
 
 </body>
 </html>
